@@ -2,7 +2,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using OzonEdu.StockApi.Controllers.V1;
 using OzonEdu.StockApi.Grpc;
 using OzonEdu.StockApi.Models;
 using OzonEdu.StockApi.Services.Interfaces;

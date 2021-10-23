@@ -4,7 +4,7 @@ using Grpc.Core;
 using Grpc.Core.Interceptors;
 using Microsoft.Extensions.Logging;
 
-namespace OzonEdu.StockApi.Infrastructure.Middlewares
+namespace OzonEdu.StockApi.Infrastructure.Interceptors
 {
     public class LoggingInterceptor : Interceptor
     {

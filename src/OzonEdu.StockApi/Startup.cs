@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using OzonEdu.StockApi.GrpcServices;
-using OzonEdu.StockApi.Infrastructure.Middlewares;
+using OzonEdu.StockApi.Infrastructure.Interceptors;
 using OzonEdu.StockApi.Services;
 using OzonEdu.StockApi.Services.Interfaces;
 
