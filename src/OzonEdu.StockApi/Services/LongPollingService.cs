@@ -6,7 +6,7 @@ using OzonEdu.StockApi.Services.Interfaces;
 
 namespace OzonEdu.StockApi.Services
 {
-    public class LongPoolingService : ILongPoolingService
+    public class LongPollingService : ILongPollingService
     {
         private const int Threshold = 10;
         private readonly ConcurrentDictionary<Guid, int> _requests = new ConcurrentDictionary<Guid, int>();

@@ -10,7 +10,7 @@ using OzonEdu.StockApi.HttpModels;
 using var cts = new CancellationTokenSource();
 cts.CancelAfter(TimeSpan.FromSeconds(3));
 
-var client = new LongPoolingClient(new HttpClient { BaseAddress = new Uri("http://localhost:5000")});
+var client = new LongPollingClient(new HttpClient { BaseAddress = new Uri("http://localhost:5000")});
 var guidResponse = await client.Add(cts.Token);
 
 Console.WriteLine(guidResponse.Guid.ToString());

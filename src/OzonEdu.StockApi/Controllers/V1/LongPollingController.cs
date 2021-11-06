@@ -10,20 +10,20 @@ using OzonEdu.StockApi.Services.Interfaces;
 namespace OzonEdu.StockApi.Controllers.V1
 {
     [ApiController]
-    [Route("v1/api/long-pooling")]
-    public class LongPoolingController : ControllerBase
+    [Route("v1/api/long-polling")]
+    public class LongPollingController : ControllerBase
     {
-        private readonly ILongPoolingService _longPoolingService;
+        private readonly ILongPollingService _longPollingService;
 
-        public LongPoolingController(ILongPoolingService longPoolingService)
+        public LongPollingController(ILongPollingService longPollingService)
         {
-            _longPoolingService = longPoolingService;
+            _longPollingService = longPollingService;
         }
 
         [HttpPost("add")]
         public async Task<ActionResult<V1AddResponse>> Add(CancellationToken token)
         {
-            var id = await _longPoolingService.Add(token);
+            var id = await _longPollingService.Add(token);
             return Ok(new V1AddResponse {Guid = id});
         }
 
@@ -31,7 +31,7 @@ namespace OzonEdu.StockApi.Controllers.V1
         public async Task<ActionResult<V1CheckIfProcessedResponse>> CheckIfProcessed(V1CheckIfProcessedRequest request,
             CancellationToken token)
         {
-            var result = await _longPoolingService.CheckIfProcessed(request.Guid, token);
+            var result = await _longPollingService.CheckIfProcessed(request.Guid, token);
             return Ok(new V1CheckIfProcessedResponse {IsProcessed = result});
         }
 
@@ -41,7 +41,7 @@ namespace OzonEdu.StockApi.Controllers.V1
             using var cts = CancellationTokenSource.CreateLinkedTokenSource(token);
             cts.CancelAfter(TimeSpan.FromSeconds(3));
 
-            var client = new LongPoolingClient(new HttpClient { BaseAddress = new Uri("http://localhost:5000")});
+            var client = new LongPollingClient(new HttpClient { BaseAddress = new Uri("http://localhost:5000")});
             var guidResponse = await client.Add(cts.Token);
 
             Console.WriteLine(guidResponse.Guid.ToString());

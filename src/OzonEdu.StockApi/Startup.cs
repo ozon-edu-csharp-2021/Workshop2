@@ -19,7 +19,7 @@ namespace OzonEdu.StockApi
         {
             services.AddSingleton<IStockService, StockService>();
             services.AddScoped<ILoggingService, LoggingService>();
-            services.AddSingleton<ILongPoolingService, LongPoolingService>();
+            services.AddSingleton<ILongPollingService, LongPollingService>();
 
             services.AddGrpc(options => options.Interceptors.Add<LoggingInterceptor>());
             services.AddHostedService<CustomHostedService>();

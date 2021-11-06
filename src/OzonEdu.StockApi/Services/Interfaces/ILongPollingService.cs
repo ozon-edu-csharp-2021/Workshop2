@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace OzonEdu.StockApi.Services.Interfaces
 {
-    public interface ILongPoolingService
+    public interface ILongPollingService
     {
         Task<Guid> Add(CancellationToken token);
         
