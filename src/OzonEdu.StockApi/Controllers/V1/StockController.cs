@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -51,13 +50,6 @@ namespace OzonEdu.StockApi.Controllers.V1
                 Quantity = postViewModel.Quantity
             }, token);
             return Ok(createdStockItem);
-        }
-    }
-
-    public class CustomException : Exception
-    {
-        public CustomException() : base("some custom exception")
-        {
         }
     }
 }
