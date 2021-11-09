@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -9,26 +10,28 @@ namespace OzonEdu.StockApi.Services
 {
     public class StockService : IStockService
     {
-        private readonly List<StockItem> StockItems = new List<StockItem>
-        {
-            new StockItem(1, "Футболка", 10),
-            new StockItem(2, "Толстовка", 20),
-            new StockItem(3, "Кепка", 15)
-        };
+        private int _id = 0;
+        private readonly ConcurrentBag<StockItem> _stockItems = new ConcurrentBag<StockItem>();
 
-        public Task<List<StockItem>> GetAll(CancellationToken _) => Task.FromResult(StockItems);
+        public StockService()
+        {
+            _stockItems.Add( new StockItem(Interlocked.Increment(ref _id), "Футболка", 10));
+            _stockItems.Add( new StockItem(Interlocked.Increment(ref _id), "Толстовка", 20));
+            _stockItems.Add( new StockItem(Interlocked.Increment(ref _id), "Кепка", 15));
+        }
+
+        public Task<List<StockItem>> GetAll(CancellationToken _) => Task.FromResult(_stockItems.ToList());
 
         public Task<StockItem> GetById(long itemId, CancellationToken _)
         {
-            var stockItem = StockItems.FirstOrDefault(x => x.ItemId == itemId);
+            var stockItem = _stockItems.FirstOrDefault(x => x.ItemId == itemId);
             return Task.FromResult(stockItem);
         }
 
         public Task<StockItem> Add(StockItemCreationModel stockItem, CancellationToken _)
         {
-            var itemId = StockItems.Max(x => x.ItemId) + 1;
-            var newStockItem = new StockItem(itemId, stockItem.ItemName, stockItem.Quantity);
-            StockItems.Add(newStockItem);
+            var newStockItem = new StockItem(Interlocked.Increment(ref _id), stockItem.ItemName, stockItem.Quantity);
+            _stockItems.Add(newStockItem);
             return Task.FromResult(newStockItem);
         }
     }

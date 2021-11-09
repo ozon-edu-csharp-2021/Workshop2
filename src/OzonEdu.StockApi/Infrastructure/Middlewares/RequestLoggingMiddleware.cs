@@ -27,6 +27,7 @@ namespace OzonEdu.StockApi.Infrastructure.Middlewares
         {
             try
             {
+                _logger.LogInformation(context.Request.Path);
                 if (context.Request.ContentLength > 0)
                 {
                     context.Request.EnableBuffering();
